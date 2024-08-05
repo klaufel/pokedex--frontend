@@ -1,0 +1,67 @@
+@button__font-size: 16px;
+@button__line-height: auto;
+@button__font-weight: 700;
+@button__border-width: 0;
+@button__border-color: transparent;
+@button__border-radius: 16px;
+@button__padding-y: 10px;
+@button__padding-x: 20px;
+@button__color: @color--white;
+@button__cursor--default: pointer;
+@button__cursor--disabled: not-allowed;
+
+.button {
+  font-family: inherit;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: @button__border-width solid @button__border-color;
+  border-radius: @button__border-radius;
+  cursor: @button__cursor--default;
+  padding: @button__padding-y @button__padding-x;
+  color: @button__color;
+  font-weight: @button__font-weight;
+  text-decoration: none;
+  transition: background 0.3s;
+  background: @color--green-dark;
+  text-transform: uppercase;
+  background-image: linear-gradient(
+    to right,
+    @color--green-light 0%,
+    @color--green-dark 100%
+  );
+  background-size: 200% auto;
+
+  // Share hover, focus and active styles
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: @button__color;
+    background-position: right center;
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &:active {
+    background-image: none;
+    color: @button__color;
+    box-shadow: none;
+  }
+
+  // Make your buttons inactive by adding the class or disabled boolean attribute
+  &:disabled,
+  &.is-disabled {
+    cursor: @button__cursor--disabled;
+    opacity: 0.5;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,45 @@
+.card {
+  border-radius: 20px;
+  background: rgba(@color--gray-dark, 0.5);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  &__image {
+    width: 100%;
+    height: auto;
+  }
+
+  &__name {
+    color: @color--blue-dark;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0 4px 12px 0 rgba(@color--gray-light, 1);
+      background: rgba(@color--gray-light, 0.8);
+      transform: translateY(-0.4rem);
+
+      .card__image {
+        transform: scale(1.1);
+      }
+      .card__name {
+        transform: translateY(-0.2rem);
+        transform-origin: bottom center;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: all 0.3s;
+
+    &__name,
+    &__image {
+      transition: transform 0.4s;
+    }
+  }
+}
