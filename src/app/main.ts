@@ -186,4 +186,4 @@ function renderPokemonList() {
   pokemonList.innerHTML = template;
 }
 
-await initialize();
+initialize();
