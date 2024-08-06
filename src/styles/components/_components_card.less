@@ -1,29 +1,55 @@
 .card {
-  border-radius: 20px;
-  background: rgba(@color--gray-dark, 0.5);
-  padding: 1rem;
+  border-radius: @br-base;
+  background: rgba(@c-white, 0.4);
+  padding: @w-4;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  position: relative;
+  gap: @w-2;
 
   &__image {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: @w-36;
+    object-fit: contain;
+  }
+
+  &__number {
+    position: absolute;
+    left: @w-2;
+    top: @w-2;
+    background: rgba(@c-green-dark, 0.8);
+    color: @c-white;
+    font-weight: @fw-bold;
+    border-radius: @br-base;
+    font-size: @fs-xs;
+    line-height: @lh-xs;
+    padding: @w-1 @w-2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: @w-8;
+    height: @w-6;
   }
 
   &__name {
-    color: @color--blue-dark;
+    color: @c-blue-dark;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: @fw-bold;
+    font-size: @fs-md;
+    line-height: @lh-md;
+    margin: 0;
   }
 
   @media (hover: hover) {
     &:hover {
-      box-shadow: 0 4px 12px 0 rgba(@color--gray-light, 1);
-      background: rgba(@color--gray-light, 0.8);
+      box-shadow: 0 4px 12px 0 rgba(@c-white, 0.8);
+      background: rgba(@c-white, 1);
       transform: translateY(-0.4rem);
 
+      .card__number {
+        background: @c-green-dark;
+      }
       .card__image {
         transform: scale(1.1);
       }
@@ -35,11 +61,54 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: all 0.3s;
+    transition: all 0.4s;
 
+    &__number {
+      transition: background 0.4s;
+    }
     &__name,
     &__image {
       transition: transform 0.4s;
     }
+  }
+}
+
+.card-skeleton {
+  animation: skeleton-loading 1.2s infinite;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f4f4f4 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  position: relative;
+  border-radius: @br-base;
+  background: rgba(@c-white, 0.4);
+  padding: @w-4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  gap: @w-2;
+
+  &__image {
+    width: @w-36;
+    height: @w-36;
+    background: rgba(@c-gray-light, 0.4);
+    border-radius: @br-base;
+    display: block;
+  }
+
+  &__name {
+    width: 60%;
+    display: block;
+    height: @w-6;
+    border-radius: @br-base;
+    background: rgba(@c-gray-light, 0.4);
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }

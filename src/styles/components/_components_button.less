@@ -1,18 +1,13 @@
-@button__font-size: 16px;
-@button__line-height: auto;
-@button__font-weight: 700;
 @button__border-width: 0;
 @button__border-color: transparent;
-@button__border-radius: 16px;
-@button__padding-y: 10px;
-@button__padding-x: 20px;
-@button__color: @color--white;
+@button__border-radius: @br-base;
+@button__color: @c-white;
 @button__cursor--default: pointer;
 @button__cursor--disabled: not-allowed;
 
 .button {
   font-family: inherit;
-  display: inline-block;
+  display: flex;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -20,17 +15,18 @@
   border: @button__border-width solid @button__border-color;
   border-radius: @button__border-radius;
   cursor: @button__cursor--default;
-  padding: @button__padding-y @button__padding-x;
+  padding: @w-3 @w-6;
   color: @button__color;
-  font-weight: @button__font-weight;
+  font-weight: @fw-bold;
   text-decoration: none;
   transition: background 0.3s;
-  background: @color--green-dark;
+  background: @c-green-dark;
   text-transform: uppercase;
+  gap: @w-1;
   background-image: linear-gradient(
     to right,
-    @color--green-light 0%,
-    @color--green-dark 100%
+    @c-green-light 0%,
+    @c-green-dark 100%
   );
   background-size: 200% auto;
 
@@ -63,5 +59,21 @@
     cursor: @button__cursor--disabled;
     opacity: 0.5;
     box-shadow: none;
+  }
+
+  &--center {
+    margin: 0 auto;
+  }
+
+  &--sm {
+    padding: @w-2 @w-3;
+    font-size: @fs-sm;
+  }
+
+  & > svg {
+    width: @w-4;
+    height: @w-4;
+    fill: none;
+    stroke: currentColor;
   }
 }

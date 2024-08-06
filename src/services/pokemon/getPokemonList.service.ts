@@ -1,42 +1,22 @@
-import { httpClient } from "../common/httpClient";
+import { API_BASE_URL, API_ROUTES } from "../../lib/api";
 
-type PokemonListApiResponse = {
-  pokemon_entries: {
-    entry_number: number;
-    pokemon_species: {
-      name: string;
-      url: string;
-    };
-  }[];
-};
+import { fromPokemonListApiReponseToPokemonListEntityMapper } from "./mappers/fromPokemonListApiReponseToPokemonListEntity.mapper";
 
-export type PokemonListEntity = {
-  id: number;
-  name: string;
-  image: string;
-};
+import type { PokemonListApiResponse } from "./entities/response/PokemonListApiResponse";
+import type { PokemonListEntity } from "./entities/PokemonList.entity";
 
-export async function getPokemonListService(): Promise<{
-  results: PokemonListEntity[];
-} | null> {
+export async function getPokemonListService(): Promise<PokemonListEntity[]> {
   try {
-    const { data: response } = await httpClient().get<{
-      data: PokemonListApiResponse;
-    }>("/pokedex/national");
+    const apiUrl = `${API_BASE_URL}/${API_ROUTES.POKEMON.LIST}`;
+    const response = await fetch(apiUrl);
+    const data = (await response.json()) as PokemonListApiResponse;
 
-    const results = response.pokemon_entries.map(
-      (pokemon): PokemonListEntity => ({
-        id: pokemon.entry_number,
-        name: pokemon.pokemon_species.name,
-        image: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokemon.entry_number
-          .toString()
-          .padStart(3, "0")}.png`,
-      })
+    const results = data.pokemon_entries.map(
+      fromPokemonListApiReponseToPokemonListEntityMapper
     );
 
-    return { results };
-  } catch (e) {
-    console.log(e);
-    return null;
+    return results;
+  } catch {
+    return [];
   }
 }

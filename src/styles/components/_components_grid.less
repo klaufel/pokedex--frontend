@@ -1,5 +1,12 @@
 .grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  display: flex;
+  flex-direction: column;
+  gap: @w-6;
+  margin-bottom: @w-16;
+
+  &__list {
+    display: grid;
+    gap: @w-6;
+    grid-template-columns: repeat(auto-fill, minmax(@w-48, 1fr));
+  }
 }

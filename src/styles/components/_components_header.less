@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  width: @w-full;
+  background: @c-white;
+  position: sticky;
+  top: 0;
+  z-index: @index-1;
+  height: @w-12;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: @w-md) {
+    height: @w-16;
+  }
+
+  &__container {
+    padding: 0 @w-6;
+    width: @w-full;
+    max-width: @w-xl;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    height: 24px;
+    width: 56px;
+    object-fit: cover;
+    object-position: center right;
+
+    @media (min-width: @w-md) {
+      height: 32px;
+      width: auto;
+    }
+  }
+
+  &__filters {
+    @media (min-width: @w-md) {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.filters {
+  background: rgba(@c-white);
+  border-radius: @br-base;
+  display: flex;
+  flex-direction: column;
+  padding: @w-6;
+  gap: @w-6;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: @w-4;
+  }
+
+  &__element {
+    display: flex;
+    flex-direction: column;
+    gap: @w-2;
+    border-bottom: @bw-1 solid @c-gray-light;
+    padding-bottom: @w-4;
+  }
+
+  &__title {
+    font-weight: @fw-bold;
+    font-size: @fs-sm;
+    line-height: @lh-sm;
+  }
+}
