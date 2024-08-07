@@ -76,9 +76,7 @@ You can use tools like:
 
 ## 🚀 CI & deploy!
 
-For each push and pull request, jobs are executed to ensure the delivery of our code to production. See the [repository actions](https://github.com/klaufel/recipebook/actions).
-
-<img width="959" src="https://user-images.githubusercontent.com/1427623/223584673-f5e5de36-64d2-4092-b6f6-9732cf4efe86.png">
+For each push and pull request, jobs are executed to ensure the delivery of our code to production. See the [repository actions](https://github.com/klaufel/pokedex--frontend/actions).
 
 Automatically for each merge to `main` branch the deployment to production is done, so you don't have to worry about doing anything else.
 
