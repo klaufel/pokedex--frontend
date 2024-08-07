@@ -1,18 +1,18 @@
-# 📔 RecipeBook
+# 🎱 Pokédex GO!
 
-Monorepo to easily manage all the dependencies and packages and the tools we use within the project.
+Repository to easily manage all the dependencies and packages and the tools we use within the project.
 
 ## 💡 About the project
 
-Online recipe book where you can create your own cooking recipes. Yes, those recipes for dishes that we make on sundays at home and that unfortunately will never be as delicious as our mothers and fathers 🥲.
+Project to obtain a list of pokemons and filter them by type, color and gender. You can also search by name.
 
-👉 View project on production: [recipebook-app.vercel.app](https://recipebook-app.vercel.app)
+👉 View project on production: [pokedex-go-frontend.vercel.app](https://pokedex-go-frontend.vercel.app/)
 
 https://user-images.githubusercontent.com/1427623/223583541-32ec05b3-ff22-4f42-b769-e2ad6b816374.mp4
 
 ## 👋 Getting started!
 
-To start the project you’ll need to use `Node.js 18` and `pnpm 7` on your machine.
+To start the project you’ll need to use `Node.js 20` and `pnpm 8` on your machine.
 
 You can use [nvm (Node Version Manager)](https://github.com/creationix/nvm) to easily switch Node versions between different projects.
 
@@ -30,73 +30,38 @@ Clone the repository in your machine and install the dependencies `pnpm install`
 pnpm run dev
 ```
 
-**Initializes the server in production mode.**
-
-```node
-pnpm run start
-```
-
 **Compile statics chunks and generate a build of application.**
 
 ```node
 pnpm run build
-pnpm run build:analyze // With bundler analyze report
 ```
 
 Another scripts allocated in root package but they can be thrown by the different packages:
 
 ```node
 pnpm run lint // Lint all files
-pnpm run lint:fix // Lint and fixed if possible all files
 
 pnpm run ts:check // Check validation of types (TypeScript)
 
-pnpm run theme:generate // Generate theme based on design tokens
 ```
 
 > Look more in the documentation of each package inside our workspace!
 
-## 📦 Packages
-
-The repository is based on a monorepo so we have different packages that we use in our application, you can look at the documentation of all of them from here.
-
-| Package                                 |  Description                                                          |
-| :-------------------------------------- | :-------------------------------------------------------------------- |
-| [@recipebook/config](./packages/config) | Shared configuration to use throughout the application.               |
-| [@recipebook/domain](./packages/domain) | A domain of contain all business logic to be used in the application. |
-| [@recipebook/e2e](./packages/e2e)       | Execution of the test e2e of the application                          |
-| [@recipebook/lint](./packages/lint)     | Easy control of all standardization of code in all our projects.      |
-| [@recipebook/theme](./packages/theme)   | App theme based on design tokens of brand.                            |
-
 ## 🍽️ API
 
-The project consumes a Fake API created with [json-server](https://github.com/typicode/json-server).
-
-API url: https://recipebook-api.vercel.app/
+The project consumes a [PokéAPI](https://pokeapi.co/).
 
 ## 🧪 Test
 
-### Domain test
+### Services test
 
-Launch domain unit / integration test with `pnpm run test:unit` command.
-
-```node
-pnpm run test:domain
-pnpm run test:domain:ci
-```
-
-### Components test
-
-Launch components test with `pnpm run test:components` command.
+Launch services unit / integration test with `pnpm run test` command.
 
 ```node
-pnpm run test:components
-pnpm run test:components:ci
+pnpm run test
+pnpm run test:ci
+pnpm run test:watch
 ```
-
-### e2e test
-
-Launch components test with `pnpm run test:e2e` command.
 
 ## ⚡️ Web performance
 
