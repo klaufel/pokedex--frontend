@@ -1,15 +1,15 @@
 import { FILTERS } from "../../../lib/filters";
-import type { PokemonFiltersEntity } from "../entities/PokemonFiltersList.entity";
-import type { PokemonFiltersResultsApiResponse } from "../entities/response/PokemonFiltersListApiResponse";
+import type { PokemonFiltersListEntity } from "../entities/PokemonFiltersList.entity";
+import type { PokemonFiltersListResultsApiResponse } from "../entities/response/PokemonFiltersListApiResponse";
 
 export function fromPokemonFiltersApiReponseToPokemonListEntityMapper(response: {
-  color: PokemonFiltersResultsApiResponse[];
-  type: PokemonFiltersResultsApiResponse[];
-  gender: PokemonFiltersResultsApiResponse[];
-}): PokemonFiltersEntity {
+  color: PokemonFiltersListResultsApiResponse[];
+  type: PokemonFiltersListResultsApiResponse[];
+  gender: PokemonFiltersListResultsApiResponse[];
+}): PokemonFiltersListEntity {
   const { color, type, gender } = response;
 
-  const _getFilterNames = (filter: PokemonFiltersResultsApiResponse) => {
+  const _getFilterNames = (filter: PokemonFiltersListResultsApiResponse) => {
     return filter?.name || "";
   };
 
