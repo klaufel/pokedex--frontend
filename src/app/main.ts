@@ -8,6 +8,8 @@ import { renderCard, renderCardSkeleton } from "./renders/renderCard";
 import { renderFiltersOptions } from "./renders/renderFiltersOptions";
 import { renderTitle } from "./renders/renderTitle";
 
+const CLASS_ACTIVE = "is-active";
+
 const searchInput = document.getElementById("searchInput") as HTMLInputElement;
 
 const filterTypeElement = document.getElementById(
@@ -20,7 +22,11 @@ const filterGenderElement = document.getElementById(
   "filterGender"
 ) as HTMLSelectElement;
 
-const filtersForm = document.getElementById("filters") as HTMLFormElement;
+const filtersForm = document.getElementById("filtersForm") as HTMLFormElement;
+const openFilters = document.getElementById("openFilters") as HTMLButtonElement;
+const applyFilters = document.getElementById(
+  "applyFilters"
+) as HTMLButtonElement;
 
 const pokemonList = document.getElementById("pokemonList") as HTMLDivElement;
 const loadMore = document.getElementById("loadMore") as HTMLButtonElement;
@@ -29,7 +35,7 @@ const clearFilters = document.getElementById(
 ) as HTMLButtonElement;
 
 const PAGE_INITIAL = 1;
-const LIMIT_INITIAL = 8;
+const LIMIT_INITIAL = 20;
 const SKELETONS = LIMIT_INITIAL;
 
 let allPokemons: PokemonListEntity[] = [];
@@ -69,6 +75,11 @@ function attachListeners(): void {
   filtersForm.addEventListener("change", handleFilterChange);
   loadMore.addEventListener("click", handleLoadMore);
   clearFilters.addEventListener("click", handleResetFilters);
+  openFilters.addEventListener("click", toggleFiltersMobile);
+  applyFilters.addEventListener("click", toggleFiltersMobile);
+}
+function toggleFiltersMobile() {
+  filtersForm.classList.toggle(CLASS_ACTIVE);
 }
 
 function toggleLoadMoreButton() {
@@ -79,6 +90,8 @@ function toggleLoadMoreButton() {
 function handleResetFilters(event: MouseEvent) {
   event.preventDefault();
   filtersForm.reset();
+  searchInput.value = "";
+  filtersForm.classList.remove(CLASS_ACTIVE);
   handleFilterChange();
 }
 
