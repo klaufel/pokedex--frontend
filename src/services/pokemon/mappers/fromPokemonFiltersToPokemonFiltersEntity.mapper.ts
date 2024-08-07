@@ -1,6 +1,6 @@
 import { FILTERS } from "../../../lib/filters";
-import type { PokemonFiltersEntity } from "../entities/PokemonFilters.entity";
-import type { PokemonFiltersResultsApiResponse } from "../entities/response/PokemonFiltersApiResponse";
+import type { PokemonFiltersEntity } from "../entities/PokemonFiltersList.entity";
+import type { PokemonFiltersResultsApiResponse } from "../entities/response/PokemonFiltersListApiResponse";
 
 export function fromPokemonFiltersApiReponseToPokemonListEntityMapper(response: {
   color: PokemonFiltersResultsApiResponse[];

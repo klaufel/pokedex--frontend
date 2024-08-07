@@ -10,8 +10,8 @@ export const FILTERS = {
   [FILTERS_DICTIONARY.GENDER]: "gender",
 } as const;
 
-export const FILTERS_KEYS = {
-  [FILTERS_DICTIONARY.TYPE]: "filter-type",
-  [FILTERS_DICTIONARY.COLOR]: "filter-color",
-  [FILTERS_DICTIONARY.GENDER]: "filter-gender",
-} as const;
+export const INITIAL_FILTERS = {
+  [FILTERS.TYPE]: [],
+  [FILTERS.COLOR]: [],
+  [FILTERS.GENDER]: [],
+};

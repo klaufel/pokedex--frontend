@@ -1,7 +1,7 @@
-import { getPokemonFiltersService } from "../../services/pokemon/getPokemonFilters.service";
+import { getPokemonFiltersListService } from "../../services/pokemon/getPokemonFiltersList.service";
 import { renderInput } from "./renderInput";
 
-import { FILTERS_KEYS } from "../../lib/filters";
+import { FILTERS } from "../../lib/filters";
 
 export async function renderFiltersOptions(elements: {
   filterTypeElement: HTMLSelectElement;
@@ -11,23 +11,21 @@ export async function renderFiltersOptions(elements: {
   const { filterTypeElement, filterColorElement, filterGenderElement } =
     elements;
 
-  const { type, color, gender } = await getPokemonFiltersService();
+  const { type, color, gender } = await getPokemonFiltersListService();
 
   const filtersTypeTemplate = `<div class="input-group input-group--2-cols">${[
-    ...type.map((filter) => renderInput(FILTERS_KEYS.TYPE, "checkbox", filter)),
+    ...type.map((filter) => renderInput(FILTERS.TYPE, "checkbox", filter)),
   ].join("")}</div>`;
 
   const filtersColorTemplate = `<div class="input-group input-group--5-cols">${[
     ...color.map((filter) =>
-      renderInput(FILTERS_KEYS.COLOR, "checkbox", filter, "color")
+      renderInput(FILTERS.COLOR, "checkbox", filter, "color")
     ),
   ].join("")}</div>`;
 
   const filtersGenderTemplate = `<div class="input-group input-group--2-cols">${[
-    renderInput(FILTERS_KEYS.GENDER, "radio", { label: "all", checked: true }),
-    ...gender.map((filter) =>
-      renderInput(FILTERS_KEYS.GENDER, "radio", filter)
-    ),
+    renderInput(FILTERS.GENDER, "radio", { label: "all", checked: true }),
+    ...gender.map((filter) => renderInput(FILTERS.GENDER, "radio", filter)),
   ].join("")}</div>`;
 
   filterTypeElement.insertAdjacentHTML("beforeend", filtersTypeTemplate);

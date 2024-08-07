@@ -1,12 +1,12 @@
 import { API_BASE_URL, API_ROUTES } from "../../lib/api";
 import { FILTERS } from "../../lib/filters";
 
-import type { PokemonFiltersEntity } from "./entities/PokemonFilters.entity";
-import type { PokemonFiltersApiResponse } from "./entities/response/PokemonFiltersApiResponse";
+import type { PokemonFiltersListEntity } from "./entities/PokemonFiltersList.entity";
+import type { PokemonFiltersListApiResponse } from "./entities/response/PokemonFiltersListApiResponse";
 
 import { fromPokemonFiltersApiReponseToPokemonListEntityMapper } from "./mappers/fromPokemonFiltersToPokemonFiltersEntity.mapper";
 
-export async function getPokemonFiltersService(): Promise<PokemonFiltersEntity> {
+export async function getPokemonFiltersListService(): Promise<PokemonFiltersListEntity> {
   try {
     const response = await Promise.all([
       fetch(`${API_BASE_URL}/${API_ROUTES.POKEMON.FILTERS.GENDER.LIST}`),
@@ -17,7 +17,7 @@ export async function getPokemonFiltersService(): Promise<PokemonFiltersEntity> 
     const [{ results: gender }, { results: color }, { results: type }] =
       await Promise.all(
         response.map((response) => {
-          return response.json() as unknown as PokemonFiltersApiResponse;
+          return response.json() as unknown as PokemonFiltersListApiResponse;
         })
       );
 

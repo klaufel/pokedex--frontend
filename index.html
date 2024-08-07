@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <title>Vite + React + TS</title>
+    <title>Pokédex GO!</title>
   </head>
   <body>
     <header class="header">
@@ -37,11 +37,12 @@
     </header>
     <main class="layout">
       <aside class="layout__aside">
-        <div class="filters">
+        <form id="filters" class="filters">
           <div class="input">
             <input
               class="input__field"
               type="text"
+              name="query"
               id="searchInput"
               placeholder="Search Pokémon..."
             />
@@ -60,7 +61,7 @@
           <button class="button button--sm button--center" id="clearFilters">
             Clear filters
           </button>
-        </div>
+        </form>
       </aside>
       <div class="layout__content">
         <div id="pokemonList"></div>

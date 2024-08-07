@@ -1,8 +1,7 @@
-import { FILTERS_KEYS } from "../lib/filters";
 import type { PokemonListEntity } from "../services/pokemon/entities/PokemonList.entity";
-
+import { getPokemonFilteredService } from "../services/pokemon/getPokemonFiltered.service";
+import { getFiltersValues } from "./filters/form";
 import { getPokemonListService } from "../services/pokemon/getPokemonList.service";
-import { getPokemonByType, getPokemonByColor, getPokemonByGender } from "./api";
 import { renderAlert } from "./renders/renderAlert";
 
 import { renderCard, renderCardSkeleton } from "./renders/renderCard";
@@ -21,8 +20,13 @@ const filterGenderElement = document.getElementById(
   "filterGender"
 ) as HTMLSelectElement;
 
+const filtersForm = document.getElementById("filters") as HTMLFormElement;
+
 const pokemonList = document.getElementById("pokemonList") as HTMLDivElement;
 const loadMore = document.getElementById("loadMore") as HTMLButtonElement;
+const clearFilters = document.getElementById(
+  "clearFilters"
+) as HTMLButtonElement;
 
 const PAGE_INITIAL = 1;
 const LIMIT_INITIAL = 8;
@@ -62,11 +66,9 @@ function showSkeletons() {
 
 function attachListeners(): void {
   searchInput.addEventListener("input", handleFilterChange);
-  filterTypeElement.addEventListener("change", handleFilterChange);
-  filterColorElement.addEventListener("change", handleFilterChange);
-  filterGenderElement.addEventListener("change", handleFilterChange);
-
+  filtersForm.addEventListener("change", handleFilterChange);
   loadMore.addEventListener("click", handleLoadMore);
+  clearFilters.addEventListener("click", handleResetFilters);
 }
 
 function toggleLoadMoreButton() {
@@ -74,18 +76,15 @@ function toggleLoadMoreButton() {
   loadMore.style.display = isHidden ? "none" : "flex";
 }
 
+function handleResetFilters(event: MouseEvent) {
+  event.preventDefault();
+  filtersForm.reset();
+  handleFilterChange();
+}
+
 function handleLoadMore() {
   page++;
   renderPokemonList();
-}
-
-function getSelectedInputValue(
-  element: NodeListOf<HTMLInputElement>
-): string[] {
-  const selectedInput = Array.from(element).filter(({ checked }) => checked);
-  return selectedInput
-    ? selectedInput.map(({ value }) => value).filter(Boolean)
-    : [];
 }
 
 async function handleFilterChange() {
@@ -93,73 +92,13 @@ async function handleFilterChange() {
     page = PAGE_INITIAL;
     showSkeletons();
 
-    const searchQuery = searchInput.value.toLowerCase();
+    const query = searchInput.value.toLowerCase();
+    const { filters } = getFiltersValues(filtersForm);
 
-    const filterType = document.getElementsByName(
-      FILTERS_KEYS.TYPE
-    ) as NodeListOf<HTMLInputElement>;
+    const pokemonFilteredParams = { query, filters, pokemons: allPokemons };
+    const pokemons = await getPokemonFilteredService(pokemonFilteredParams);
 
-    const filterColor = document.getElementsByName(
-      FILTERS_KEYS.COLOR
-    ) as NodeListOf<HTMLInputElement>;
-
-    const filterGender = document.getElementsByName(
-      FILTERS_KEYS.GENDER
-    ) as NodeListOf<HTMLInputElement>;
-
-    const filterTypeValue = getSelectedInputValue(filterType);
-    const filterColorValue = getSelectedInputValue(filterColor);
-    const filterGenderValue = getSelectedInputValue(filterGender);
-
-    let filteredPokemons = allPokemons;
-
-    if (!!filterTypeValue.length) {
-      const pokemonsType = await Promise.all(
-        filterTypeValue.map(async (type) => {
-          return await getPokemonByType(type);
-        })
-      );
-
-      filteredPokemons = filteredPokemons.filter((pokemon) =>
-        pokemonsType.flat().some(({ name }) => name === pokemon.name)
-      );
-    }
-
-    if (!!filterColorValue.length) {
-      const pokemonsColor = await Promise.all(
-        filterColorValue.map(async (color) => {
-          return await getPokemonByColor(color);
-        })
-      );
-      filteredPokemons = filteredPokemons.filter((pokemon) =>
-        pokemonsColor.flat().some(({ name }) => name === pokemon.name)
-      );
-    }
-    if (!!filterGenderValue.length) {
-      const pokemonsGender = await Promise.all(
-        filterGenderValue.map(async (gender) => {
-          return await getPokemonByGender(gender);
-        })
-      );
-
-      filteredPokemons = filteredPokemons.filter((pokemon) =>
-        pokemonsGender.flat().some(({ name }) => name === pokemon.name)
-      );
-    }
-
-    if (searchQuery) {
-      filteredPokemons = filteredPokemons.filter((pokemon) => {
-        return (
-          pokemon.name.toLowerCase().includes(searchQuery) ||
-          pokemon.id.toString().includes(searchQuery)
-        );
-      });
-    }
-
-    displayedPokemons =
-      allPokemons.filter((pokemon) =>
-        filteredPokemons.some((fp) => fp.name === pokemon.name)
-      ) || [];
+    displayedPokemons = pokemons;
 
     renderPokemonList();
     window.scrollTo(0, 0);
@@ -170,7 +109,6 @@ function renderPokemonList() {
   toggleLoadMoreButton();
   const pokemonsPagination = displayedPokemons.slice(0, limit * page);
   const pokemonsCard = pokemonsPagination.map(renderCard).join("");
-
   const hasPokemons = !!displayedPokemons.length;
 
   const template = `
