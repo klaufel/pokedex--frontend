@@ -32,7 +32,7 @@ jobs:
       - name: Validation of types
         run: pnpm run ts:check
 
-      - name: Validation of types
+      - name: Testing
         run: pnpm run test:ci
 
       - name: Generate build
