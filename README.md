@@ -8,7 +8,7 @@ Project to obtain a list of pokemons and filter them by type, color and gender. 
 
 👉 View project on production: [pokedex-go-frontend.vercel.app](https://pokedex-go-frontend.vercel.app/)
 
-https://user-images.githubusercontent.com/1427623/223583541-32ec05b3-ff22-4f42-b769-e2ad6b816374.mp4
+![CleanShot 2024-08-07 at 12 09 46@2x](https://github.com/user-attachments/assets/01099c0a-9b0d-4ee0-8dc6-a8a6ab37ce97)
 
 ## 👋 Getting started!
 
