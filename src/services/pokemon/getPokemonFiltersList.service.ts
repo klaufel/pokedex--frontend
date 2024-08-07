@@ -8,13 +8,15 @@ import { fromPokemonFiltersApiReponseToPokemonListEntityMapper } from "./mappers
 
 export async function getPokemonFiltersListService(): Promise<PokemonFiltersListEntity> {
   try {
-    const response = await Promise.all([
-      fetch(`${API_BASE_URL}/${API_ROUTES.POKEMON.FILTERS.GENDER.LIST}`),
-      fetch(`${API_BASE_URL}/${API_ROUTES.POKEMON.FILTERS.COLOR.LIST}`),
-      fetch(`${API_BASE_URL}/${API_ROUTES.POKEMON.FILTERS.TYPE.LIST}`),
-    ]);
+    const response = await Promise.all(
+      [
+        `${API_BASE_URL}/${API_ROUTES.POKEMON.FILTERS.TYPE.LIST}`,
+        `${API_BASE_URL}/${API_ROUTES.POKEMON.FILTERS.COLOR.LIST}`,
+        `${API_BASE_URL}/${API_ROUTES.POKEMON.FILTERS.GENDER.LIST}`,
+      ].map((url) => fetch(url, { cache: "force-cache" }))
+    );
 
-    const [{ results: gender }, { results: color }, { results: type }] =
+    const [{ results: type }, { results: color }, { results: gender }] =
       await Promise.all(
         response.map((response) => {
           return response.json() as unknown as PokemonFiltersListApiResponse;

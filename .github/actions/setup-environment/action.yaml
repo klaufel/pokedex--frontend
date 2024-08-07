@@ -1,0 +1,16 @@
+name: Setup environment
+description: Setup Node and package manager environment
+
+runs:
+  using: composite
+  steps:
+    - name: Install `pnpm`
+      uses: pnpm/action-setup@v3
+      with:
+        version: 8
+
+    - name: Install `Node.js`
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: pnpm

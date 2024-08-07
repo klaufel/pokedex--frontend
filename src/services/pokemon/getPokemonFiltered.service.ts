@@ -35,7 +35,6 @@ const _getPokemonByQuery = (
   query: string,
   pokemons: PokemonListEntity[] = []
 ): PokemonListEntity[] => {
-  console.log("aquo", query);
   if (!query) return pokemons;
 
   return pokemons.filter(({ id, name }) => {
@@ -54,28 +53,29 @@ const _getCommonPokemons = (arrays: string[][]): string[] => {
 };
 
 export async function getPokemonFilteredService(params: {
-  filters: PokemonFiltersListEntity;
+  filters?: PokemonFiltersListEntity;
   query?: string;
   pokemons: PokemonListEntity[];
 }): Promise<PokemonListEntity[]> {
-  const { filters, query, pokemons = [] } = params;
+  const { filters, query, pokemons = [] } = params ?? {};
+  const { color = [], type = [], gender = [] } = filters ?? {};
 
-  if (!filters.color.length && !filters.type.length && !filters.gender.length) {
+  if (!color?.length && !type?.length && !gender?.length) {
     return query ? _getPokemonByQuery(query, pokemons) : pokemons;
   }
 
   try {
     const fetchPokemons = async (
-      filter: string[],
+      filter: string[] = [],
       fetchFunction: (filter: string) => Promise<string[]>
     ) => {
       return filter.length ? Promise.all(filter.map(fetchFunction)) : [];
     };
 
     const response = await Promise.all([
-      fetchPokemons(filters.type, _getPokemonByType),
-      fetchPokemons(filters.color, _getPokemonByColor),
-      fetchPokemons(filters.gender, _getPokemonByGender),
+      fetchPokemons(type, _getPokemonByType),
+      fetchPokemons(color, _getPokemonByColor),
+      fetchPokemons(gender, _getPokemonByGender),
     ]);
 
     const data = response

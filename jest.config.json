@@ -1,0 +1,8 @@
+{
+  "rootDir": ".",
+  "testPathIgnorePatterns": ["<rootDir>/node_modules/"],
+  "testRegex": ["./.*\\.test\\.ts$"],
+  "transform": {
+    "^.+\\.(t|j)sx?$": ["@swc/jest"]
+  }
+}
