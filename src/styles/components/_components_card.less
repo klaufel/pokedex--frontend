@@ -10,8 +10,12 @@
 
   &__image {
     width: auto;
-    height: @w-36;
+    height: @w-16;
     object-fit: contain;
+
+    @media (min-width: @w-md) {
+      height: @w-36;
+    }
   }
 
   &__number {
@@ -88,11 +92,16 @@
   gap: @w-2;
 
   &__image {
-    width: @w-36;
-    height: @w-36;
     background: rgba(@c-gray-light, 0.4);
     border-radius: @br-base;
     display: block;
+    width: @w-16;
+    height: @w-16;
+
+    @media (min-width: @w-md) {
+      width: @w-36;
+      height: @w-36;
+    }
   }
 
   &__name {
