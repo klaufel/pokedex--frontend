@@ -1,18 +1,10 @@
 import { getPokemonFilteredService } from "../../pokemon/getPokemonFiltered.service";
-import { getPokemonFiltersListService } from "../../pokemon/getPokemonFiltersList.service";
 import {
   getPokemonFilteredPokemonListQuery,
   getPokemonFilteredPokemonsList,
 } from "./fixtures/getPokemonFiltered.service.fixture";
-import {
-  getPokemonFiltersListServiceColorApiResponse,
-  getPokemonFiltersListServiceEmptyApiResponse,
-  getPokemonFiltersListServiceGenderApiResponse,
-  getPokemonFiltersListServiceResponse,
-  getPokemonFiltersListServiceTypeApiResponse,
-} from "./fixtures/getPokemonFiltersList.service.fixture";
 
-declare var global: any;
+declare let global: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 global.fetch = jest.fn();
 

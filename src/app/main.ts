@@ -41,7 +41,7 @@ const SKELETONS = LIMIT_INITIAL;
 let allPokemons: PokemonListEntity[] = [];
 let displayedPokemons: PokemonListEntity[] = [];
 let page: number = PAGE_INITIAL;
-let limit: number = LIMIT_INITIAL;
+const limit: number = LIMIT_INITIAL;
 
 async function initialize(): Promise<void> {
   await renderFiltersOptions({
@@ -101,7 +101,7 @@ function handleLoadMore() {
 }
 
 async function handleFilterChange() {
-  if (!!allPokemons.length) {
+  if (allPokemons.length) {
     page = PAGE_INITIAL;
     showSkeletons();
 
